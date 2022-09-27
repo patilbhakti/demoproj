@@ -1,22 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<div align="center">
-<form method="post" action="MathServlet">
-<h2>
-Enter 1st Operand: <input type="text" name="op1"/>
-<br/><br/>
-Enter 2nd Operand: <input type="text" name="op2"/>
-<br/><br/>
-Enter Operator: <input type="text" name="operator"/>
-<br/><br/>
-<input type="submit" value="Submit" />
-<br/><br/>
-</h2></form>
-</div>
-</body>
-</html>
+package mavenWeb;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class MathServlet
+ */
+public class MathServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MathServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter pw=response.getWriter();	
+		String s1=request.getParameter("op1");
+		String s2=request.getParameter("op2");
+		String s3=request.getParameter("operator");
+		int result= Calculator.performCalculation(s1, s2, s3);
+		pw.print("<h2>The Result:"+result);
+		pw.print("<br/><br/><a href='entry.html'>Return</a>");
+		pw.close();
+		
+	}
+	
+}
