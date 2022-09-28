@@ -1,63 +1,26 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+package com.gl.hibernateXml.Apllication.app;
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-  	<servlet-name>BillServlet</servlet-name>
-  	<display-name>BillServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.gl.jspServApp1.controller.BillServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>EmployeeServlet</servlet-name>
-  	<display-name>EmployeeServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.gl.jspServApp1.controller.EmployeeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>BillServlet</servlet-name>
-  	<url-pattern>/BillServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>BillEntry</servlet-name>
-    <jsp-file>/WEB-INF/jsp/BillEntry.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>BillEntry</servlet-name>
-    <url-pattern>/BillEntry.jsp</url-pattern>
-  </servlet-mapping>
-   <servlet>
-    <servlet-name>BillView</servlet-name>
-    <jsp-file>/WEB-INF/jsp/BillView.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>BillView</servlet-name>
-    <url-pattern>/BillView.jsp</url-pattern>
-  </servlet-mapping>
-  
-  
-  <servlet-mapping>
-  	<servlet-name>EmployeeServlet</servlet-name>
-  	<url-pattern>/EmployeeServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>EmployeeEntry</servlet-name>
-    <jsp-file>/WEB-INF/jsp/EmployeeEntry.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EmployeeEntry</servlet-name>
-    <url-pattern>/EmployeeEntry.jsp</url-pattern>
-  </servlet-mapping>
-   <servlet>
-    <servlet-name>EmployeeView</servlet-name>
-    <jsp-file>/WEB-INF/jsp/EmployeeView.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EmployeeView</servlet-name>
-    <url-pattern>/EmployeeView.jsp</url-pattern>
-  </servlet-mapping>
-  
-  
-</web-app>
+import java.util.List;
+
+import org.hibernate.*;
+import org.hibernate.cfg.*;
+
+import com.gl.hibernateXmlApplication.bean.Department;
+ 
+public class DataShow {
+
+	public static void main(String[] args) throws Exception{
+		Configuration cfg=new Configuration();
+		cfg.configure("hibernate.cfg.xml");
+		SessionFactory factory=cfg.buildSessionFactory();
+		String qstmt="from Department";
+		Session session=factory.openSession();
+		Query<Department> query=session.createQuery(qstmt);
+		List<Department> departmentList=query.list();
+		departmentList.forEach((dept)-> System.out.println(dept));
+		session.close();
+				
+
+	}
+
+}
